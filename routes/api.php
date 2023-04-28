@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\v1\Auth\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +14,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::prefix('v1')->group(function (){
+    /*Auth Routes*/
+    Route::controller(AuthController::class)->prefix('users')->group(function () {
+        Route::post('login', 'login')->name('login');
+        Route::post('register', 'register')->name('register');
+        Route::post('/password/reset', 'resetPassword')->name('password.reset');
+
+        Route::middleware('auth:sanctum')->group(function () {
+            Route::post('logout', 'logout')->name('auth.logout');
+            Route::post('user/delete', 'deleteUser')->name('auth.delete');
+            Route::get('portfolio', 'getAuthenticatedUser')->name('auth.user');
+            Route::post('/password/email', 'sendPasswordResetLinkEmail')->name('password.email');
+        });
+    });
 });
