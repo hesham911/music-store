@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\v1\Auth\AuthController;
+use App\Http\Controllers\Api\v1\Artists\ArtistController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,6 +27,16 @@ Route::prefix('v1')->group(function (){
             Route::post('user/delete', 'deleteUser')->name('auth.delete');
             Route::get('portfolio', 'getAuthenticatedUser')->name('auth.user');
             Route::post('/password/email', 'sendPasswordResetLinkEmail')->name('password.email');
+        });
+    });
+
+    /*Artists Routes*/
+    Route::controller(ArtistController::class)->prefix('artists')->group(function () {
+        Route::get('/','index')->name('artists');
+        Route::get('artist/{id}','show')->name('artist');
+
+        Route::middleware('auth:sanctum')->group(function () {
+            Route::post('store','store');
         });
     });
 });
