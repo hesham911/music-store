@@ -7,12 +7,21 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
-class Song extends Model
+class Song extends Model implements HasMedia
 {
-    use HasFactory,SoftDeletes;
+    use HasFactory, SoftDeletes, InteractsWithMedia;
 
     protected $fillable = ['title', 'duration', 'album_id'];
+
+    public function registerMediaCollections(): void
+    {
+        $this->addMediaCollection('songs')->singleFile();
+
+        $this->addMediaCollection('image-song')->singleFile();
+    }
 
     public function album(): BelongsTo
     {
