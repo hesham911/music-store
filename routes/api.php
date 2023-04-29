@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\v1\Auth\AuthController;
 use App\Http\Controllers\Api\v1\Artists\ArtistController;
+use App\Http\Controllers\Api\v1\Albums\AlbumController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,8 +33,18 @@ Route::prefix('v1')->group(function (){
 
     /*Artists Routes*/
     Route::controller(ArtistController::class)->prefix('artists')->group(function () {
-        Route::get('/','index')->name('artists');
-        Route::get('artist/{id}','show')->name('artist');
+        Route::get('/','index');
+        Route::get('artist/{id}','show');
+
+        Route::middleware('auth:sanctum')->group(function () {
+            Route::post('store','store');
+        });
+    });
+
+    /*Album Routes*/
+    Route::controller(AlbumController::class)->prefix('albums')->group(function () {
+        Route::get('/','index');
+        Route::get('album/{id}','show');
 
         Route::middleware('auth:sanctum')->group(function () {
             Route::post('store','store');

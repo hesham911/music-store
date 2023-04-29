@@ -38,8 +38,8 @@ class CreateArtistRequest extends FormRequest
     {
         return [
             'userId'         => __('artists.titles.UserId'),
-            'bio'            => __('chatSystem.titles.bio'),
-            'name'           => __('chatSystem.titles.name'),
+            'bio'            => __('artists.titles.bio'),
+            'name'           => __('artists.titles.name'),
         ];
     }
 
@@ -64,14 +64,14 @@ class CreateArtistRequest extends FormRequest
         return[
             'userId.required'   =>  __('artists.validation.error.user.required'),
             'userId.exists'     =>  __('artists.validation.error.user.exists'),
-            'bio.required'      =>  __('artists.validation.error.sender.required'),
-            'bio.string'        =>  __('artists.validation.error.sender.string'),
-            'bio.min'           =>  __('artists.validation.error.message.min'),
-            'bio.max'           =>  __('artists.validation.error.message.max'),
-            'name.required'     =>  __('artists.validation.error.message.required'),
-            'name.string'       =>  __('artists.validation.error.message.string'),
-            'name.min'          =>  __('artists.validation.error.message.min'),
-            'name.max'          =>  __('artists.validation.error.message.max'),
+            'bio.required'      =>  __('artists.validation.error.bio.required'),
+            'bio.string'        =>  __('artists.validation.error.bio.string'),
+            'bio.min'           =>  __('artists.validation.error.bio.min'),
+            'bio.max'           =>  __('artists.validation.error.bio.max'),
+            'name.required'     =>  __('artists.validation.error.name.required'),
+            'name.string'       =>  __('artists.validation.error.name.string'),
+            'name.min'          =>  __('artists.validation.error.name.min'),
+            'name.max'          =>  __('artists.validation.error.name.max'),
 
         ];
     }

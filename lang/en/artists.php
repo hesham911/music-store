@@ -9,7 +9,7 @@ return [
         'error'     => [
             'user'      => [
                 'required'  => 'You should Be :attribute, register and come again',
-                'exists'    => 'You try to create artist with does\'t exist :attribute',
+                'exists'    => 'You try to create artist does\'t exist :attribute',
             ],
             'bio'       => [
                 'required'  => ':attribute is required',

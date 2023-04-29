@@ -17,4 +17,9 @@ class Artist extends Model
     {
         return $this->belongsTo(User::class,'user_id');
     }
+
+    public function albums(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(Album::class,'artist_albums')->withTimestamps();
+    }
 }

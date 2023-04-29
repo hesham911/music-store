@@ -22,7 +22,7 @@ class ArtistController extends BasicController
             ->limit(100)
             ->paginate(request()->all());
 
-        return $this->sendResponse($data,'All Artists Return');
+        return $this->sendResponse(new ArtistsResource($data),'All Artists Return');
     }
 
     public function store(CreateArtistRequest $request): JsonResponse
@@ -43,6 +43,6 @@ class ArtistController extends BasicController
     {
         $artist = Artist::find($id);
 
-       return $artist ? $this->sendResponse(new ArtistResource($artist),'Retrieved Successfully.') : $this->sendError('Product not found.');
+       return $artist ? $this->sendResponse(new ArtistResource($artist),'Retrieved Successfully.') : $this->sendError('Artist not found.');
     }
 }
