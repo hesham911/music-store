@@ -23,12 +23,12 @@ Route::prefix('v1')->group(function (){
         Route::post('login', 'login')->name('login');
         Route::post('register', 'register')->name('register');
         Route::post('/password/reset', 'resetPassword')->name('password.reset');
+        Route::post('/password/email', 'sendPasswordResetLinkEmail')->name('password.email');
 
         Route::middleware('auth:sanctum')->group(function () {
             Route::post('logout', 'logout')->name('auth.logout');
             Route::post('user/delete', 'deleteUser')->name('auth.delete');
             Route::get('portfolio', 'getAuthenticatedUser')->name('auth.user');
-            Route::post('/password/email', 'sendPasswordResetLinkEmail')->name('password.email');
         });
     });
 
@@ -55,7 +55,7 @@ Route::prefix('v1')->group(function (){
     /*Song Routes*/
     Route::controller(SongController::class)->prefix('songs')->group(function () {
         Route::get('/','index');
-        Route::get('album/{id}','show');
+        Route::get('song/{id}','show');
 
         Route::middleware('auth:sanctum')->group(function () {
             Route::post('store','store');
