@@ -20,7 +20,7 @@ class ArtistController extends BasicController
             $q->where('status', UserStatus::Active);
         })
             ->limit(100)
-            ->paginate(request()->all());
+            ->paginate(10);
 
         return $this->sendResponse(new ArtistsResource($data),'All Artists Return');
     }
@@ -39,10 +39,10 @@ class ArtistController extends BasicController
     }
 
 
-    public function show($id)
+    public function show($id): JsonResponse
     {
         $artist = Artist::find($id);
 
-       return $artist ? $this->sendResponse(new ArtistResource($artist),'Retrieved Successfully.') : $this->sendError('Artist not found.');
+       return $artist ? $this->sendResponse(new ArtistResource($artist->loadMissing(['songs','albums'])),'Retrieved Successfully.') : $this->sendError('Artist not found.');
     }
 }

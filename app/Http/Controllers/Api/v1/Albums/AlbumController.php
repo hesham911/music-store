@@ -14,7 +14,7 @@ class AlbumController extends BasicController
 
     public function index(): JsonResponse
     {
-        $data = Album::query()->limit(100)->paginate(request()->all());
+        $data = Album::query()->limit(100)->paginate(10);
 
         return $this->sendResponse(new AlbumsResource($data),'All Albums Return');
     }

@@ -16,7 +16,7 @@ class SongController extends BasicController
 
     public function index(): JsonResponse
     {
-        $data = Song::query()->limit(50)->paginate(request()->all());
+        $data = Song::query()->with('media')->limit(100)->paginate(10);
 
         return $this->sendResponse(new SongsResource($data),'All Song Return');
     }
@@ -40,9 +40,9 @@ class SongController extends BasicController
 
     public function show($id): JsonResponse
     {
-        $album = Song::find($id);
+        $song = Song::find($id);
 
-        return $album ? $this->sendResponse(new SongResource($album),'Retrieved Successfully.') : $this->sendError('Song not found.');
+        return $song ? $this->sendResponse(new SongResource($song->loadMissing(['media'])),'Retrieved Successfully.') : $this->sendError('Song not found.');
     }
 
     public function getDurationFromStringTime($string): int
